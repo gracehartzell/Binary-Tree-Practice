@@ -67,9 +67,41 @@ class Tree {
     if (node.left === null) return node;
     else return this.findMinNode(node.left);
   }
+
+  findByDFS(value) {
+    let currentNode = this.root;
+    if (this.root === null) return null;
+    else {
+      const array = [];
+      return this.findValue(currentNode, value, array);
+    }
+  }
+
+  findValue(currentNode, value, array) {
+    while (currentNode) {
+      if (currentNode === array[0]) return false;
+      array.push(currentNode.value);
+      if (currentNode.value === value) return currentNode;
+      else if (value < currentNode.value) {
+        currentNode = currentNode.left;
+        this.findValue(currentNode, value, array);
+      } else {
+        currentNode = currentNode.right;
+        this.findValue(currentNode, value, array);
+      }
+    }
+  }
+
+  // maxValue(node) {
+  //   if (!node) {
+  //     return 0;
+  //   }
+  //   if (node.right) {
+  //     return maxValue(node.right);
+  //   }
+  //   return node.value;
+  // }
 }
 
-// let tree = new Tree();
-// tree.addChild(1);
-// console.log(tree.addChild(1));
+
 module.exports = Tree;
